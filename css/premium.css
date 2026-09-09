@@ -111,27 +111,88 @@
   margin: 0 auto;
 }
 
-@media (max-width: 720px) {
-  .hero-photo { padding-bottom: 130px; }
-  .hero-card { padding: 200px 26px 30px; }
+/* ============================================================
+   MOBILE — Hero redesenhado para celular (até 768px)
+   Fotos ao fundo (atrás do card de vidro), menores e no topo.
+   Não afeta o desktop.
+   ============================================================ */
+@media (max-width: 768px) {
+  .hero-photo {
+    padding: 96px 0 46px;
+    min-height: 0;
+  }
+  /* fotos ao fundo, atrás do card — como no desktop, mas menores e no topo */
   .hero-people-bg {
-    top: 92px;
+    top: 78px;
     bottom: auto;
-    height: 210px;
-    padding: 0 1%;
+    height: 250px;
+    padding: 0 4%;
     align-items: flex-start;
     justify-content: space-between;
-    z-index: 3;
+    z-index: 0;
   }
-  .hero-person-bg { height: 210px; max-width: 36%; }
-  .hero-person-bg-2 { height: 196px; }
+  .hero-person-bg { height: 250px; max-width: 40%; }
+  .hero-person-bg-2 { height: 234px; }
+  /* degradê reforçado embaixo pra dar contraste ao card */
+  .hero-photo .hero-bg-overlay {
+    background:
+      linear-gradient(180deg, rgba(6, 18, 36, 0.15) 0%, rgba(6, 18, 36, 0.35) 38%, rgba(6, 18, 36, 0.86) 62%, rgba(6, 18, 36, 0.96) 100%);
+  }
+  /* margens laterais menores pra aproveitar a largura */
+  .hero-photo .container { padding-left: 16px; padding-right: 16px; }
+  /* card de vidro por cima das fotos, começando abaixo delas */
+  .hero-card {
+    margin-top: 188px;
+    padding: 26px 22px 28px;
+    border-color: rgba(244, 198, 107, 0.14);
+    border-radius: 16px;
+    background: rgba(8, 20, 40, 0.72);
+    box-shadow: 0 24px 50px -26px rgba(2, 8, 18, 0.7);
+  }
+  /* eyebrow menor */
+  .hero-photo .eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 14px;
+  }
+  /* título compacto e responsivo, ~3-4 linhas */
+  .hero-photo .hero-title {
+    font-size: clamp(1.6rem, 7.4vw, 2.1rem);
+    line-height: 1.16;
+    margin-bottom: 14px;
+  }
+  /* subtítulo menor e mais curto no respiro */
+  .hero-photo .hero-subtitle {
+    font-size: 0.94rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  /* botões empilhados, principal em destaque */
+  .hero-photo .hero-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hero-photo .hero-actions .btn { width: 100%; text-align: center; justify-content: center; }
+  /* esconder molduras/constelação que poluem no mobile */
+  .hero-photo .hero-corner { display: none !important; }
+  .hero-logo-constellation { display: none !important; }
+  .hero-scroll-hint { display: none !important; }
 }
 
-@media (max-width: 480px) {
-  .hero-photo { padding-bottom: 110px; }
-  .hero-people-bg { top: 84px; height: 175px; }
-  .hero-person-bg { height: 175px; }
-  .hero-person-bg-2 { height: 163px; }
+@media (max-width: 400px) {
+  .hero-people-bg { top: 74px; height: 212px; padding: 0 3%; }
+  .hero-person-bg { height: 212px; max-width: 42%; }
+  .hero-person-bg-2 { height: 198px; }
+  .hero-card { margin-top: 158px; padding: 24px 18px 26px; }
+  .hero-photo .container { padding-left: 13px; padding-right: 13px; }
+  .hero-photo .hero-title { font-size: clamp(1.5rem, 8vw, 1.9rem); }
+}
+
+/* Guard geral contra rolagem horizontal no mobile */
+@media (max-width: 768px) {
+  html, body { overflow-x: hidden; }
+  .diagcta { overflow: hidden; }
+  .diagcta::before { left: 0; right: 0; }
 }
 /* ---------- Quem Somos: quadro Jornada de Transformação (nova ideia) ---------- */
 .journey-card {
