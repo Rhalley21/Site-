@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `Olá! Sou ${nome} e quero agendar o diagnóstico da minha empresa.`
       );
       setTimeout(() => {
-        window.open(`https://wa.me/5589988075328?text=${waMessage}`, "_blank", "noopener");
+        window.open(`https://wa.me/5589999857062?text=${waMessage}`, "_blank", "noopener");
         submitBtn.disabled = false;
         submitBtn.textContent = originalLabel;
       }, 900);
