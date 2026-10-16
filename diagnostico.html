@@ -1092,6 +1092,13 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
   leadEmail = emailVal;
   leadPhone = phoneVal;
 
+  // Meta Pixel: evento Lead (cadastro preenchido e validado)
+  try{
+    if(typeof fbq === 'function'){
+      fbq('track', 'Lead');
+    }
+  } catch(e){ console.warn('Falha ao disparar evento Lead:', e); }
+
   try{
     await fetch(FORMSPREE_ENDPOINT, {
       method: 'POST',
