@@ -1068,6 +1068,10 @@ document.getElementById('registerBackBtn').addEventListener('click', () => {
    ============================================================ */
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mojoyvew';
 
+/* Planilha Google: cole aqui a URL do app da web (Apps Script) que termina em /exec.
+   Enquanto estiver vazia, o cadastro continua indo só para o e-mail (Formspree). */
+const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyzUowrwjKzCovZ92rHufDxsCX13aYDfNiSgJSl6PEJz6BwirDALn6OXUQdzV87Wfq64Q/exec';
+
 document.getElementById('registerBtn').addEventListener('click', async () => {
   const hint = document.getElementById('registerHint');
   const nameVal = document.getElementById('leadName').value.trim();
@@ -1098,6 +1102,24 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
       fbq('track', 'Lead');
     }
   } catch(e){ console.warn('Falha ao disparar evento Lead:', e); }
+
+  // Envia o cadastro para a planilha (Google Sheets)
+  if(SHEETS_ENDPOINT){
+    try{
+      await fetch(SHEETS_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams({
+          empresa: companyName,
+          nome: leadName,
+          email: leadEmail,
+          telefone: leadPhone
+        })
+      });
+    } catch(err){
+      console.warn('Falha ao enviar cadastro para a planilha:', err);
+    }
+  }
 
   try{
     await fetch(FORMSPREE_ENDPOINT, {
