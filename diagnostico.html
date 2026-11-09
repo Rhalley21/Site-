@@ -798,9 +798,11 @@ src="https://www.facebook.com/tr?id=28749029654725304&ev=PageView&noscript=1"/><
     <div class="pillars-strip" id="pillarsStrip"></div>
 
     <div class="field-block">
-      <label for="companyName">Nome da empresa</label>
-      <input type="text" id="companyName" placeholder="Digite o nome da sua empresa" autocomplete="off">
+      <label for="companyName">Nome da empresa <span style="color:var(--bad)">*</span></label>
+      <input type="text" id="companyName" placeholder="Digite o nome da sua empresa" autocomplete="off" required aria-required="true">
     </div>
+
+    <p class="nav-hint" id="startHint" style="margin-top:14px;"></p>
 
     <div class="btn-row">
       <button class="btn" id="startBtn">Iniciar diagnóstico →</button>
@@ -816,18 +818,18 @@ src="https://www.facebook.com/tr?id=28749029654725304&ev=PageView&noscript=1"/><
     </div>
 
     <div class="field-block">
-      <label for="leadName">Seu nome</label>
-      <input type="text" id="leadName" placeholder="Digite seu nome completo" autocomplete="name">
+      <label for="leadName">Seu nome <span style="color:var(--bad)">*</span></label>
+      <input type="text" id="leadName" placeholder="Digite seu nome completo" autocomplete="name" required aria-required="true">
     </div>
 
     <div class="field-block" style="margin-top:22px;">
-      <label for="leadEmail">Seu e-mail</label>
-      <input type="text" id="leadEmail" placeholder="Digite seu e-mail" autocomplete="email">
+      <label for="leadEmail">Seu e-mail <span style="color:var(--bad)">*</span></label>
+      <input type="text" id="leadEmail" placeholder="Digite seu e-mail" autocomplete="email" required aria-required="true">
     </div>
 
     <div class="field-block" style="margin-top:22px;">
-      <label for="leadPhone">Seu telefone / WhatsApp</label>
-      <input type="text" id="leadPhone" placeholder="(00) 00000-0000" autocomplete="tel">
+      <label for="leadPhone">Seu telefone / WhatsApp <span style="color:var(--bad)">*</span></label>
+      <input type="text" id="leadPhone" placeholder="(00) 00000-0000" autocomplete="tel" required aria-required="true">
     </div>
 
     <p class="nav-hint" id="registerHint" style="margin-top:14px;"></p>
@@ -1053,7 +1055,16 @@ function buildPillarsStrip(){
 buildPillarsStrip();
 
 document.getElementById('startBtn').addEventListener('click', () => {
-  companyName = document.getElementById('companyName').value.trim() || 'Sua empresa';
+  const companyVal = document.getElementById('companyName').value.trim();
+  const startHint = document.getElementById('startHint');
+  if(!companyVal){
+    startHint.style.color = 'var(--bad)';
+    startHint.textContent = 'Digite o nome da empresa para continuar.';
+    document.getElementById('companyName').focus();
+    return;
+  }
+  startHint.textContent = '';
+  companyName = companyVal;
   showScreen('screen-register');
 });
 
